@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Todo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class TodoController extends Controller
 {
@@ -90,12 +91,16 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $todo = Todo::find($id);
-        $todo->text = $request->input('text');
-        $todo->body = $request->input('body');
-        $todo->due = $request->input('due');
+        if (Gate::allows('edit-todo')) {
+            $todo = Todo::find($id);
+            $todo->text = $request->input('text');
+            $todo->body = $request->input('body');
+            $todo->due = $request->input('due');
 
-        $todo->save();
+            $todo->save();
+        } else {
+            return redirect('/todo')->with('success', 'У вас нет прав совершать данное действие');
+        }
 
         return redirect('/todo')->with('success', 'Todo updated');
     }

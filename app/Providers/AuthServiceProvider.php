@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('edit-todo', function ($user) {
+            return $user->can_change == 'yes';
+        });
     }
 }
