@@ -36,6 +36,6 @@ class User extends Authenticatable
 
     public function getFormattedDateAttribute()
     {
-        return date('j.m.Y H:i:s', time($this->timestamp));
+        return date('j.m.Y H:i:s', $this->timestamp);
     }
 }
