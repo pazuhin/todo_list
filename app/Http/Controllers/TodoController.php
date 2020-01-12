@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Todo;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -66,7 +67,13 @@ class TodoController extends Controller
     public function show($id)
     {
         $todo = Todo::find($id);
-        return view('todo.show')->with('todo', $todo);
+        $users = User::all();
+        return view('todo.show',
+            [
+                'todo' => $todo,
+                'users' => $users
+            ]
+        );
     }
 
     /**

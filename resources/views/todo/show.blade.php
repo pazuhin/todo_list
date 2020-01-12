@@ -7,6 +7,9 @@
     <hr>
         <p>{{$todo->body}}</p>
     <br><br>
+    @foreach($users as $user)
+        <p>{{$user->formatted_date}}</p>
+    @endforeach
     <div class="d-inline-flex">
         <a class="btn btn-info mr-3" href="/todo/{{$todo->id}}/edit">Edit</a>
         <form action="{{ action('TodoController@destroy' , $todo->id ) }}" method="POST">

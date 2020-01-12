@@ -33,4 +33,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getFormattedDateAttribute()
+    {
+        return date('j.m.Y H:i:s', time($this->timestamp));
+    }
 }
